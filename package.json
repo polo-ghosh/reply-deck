@@ -1,0 +1,36 @@
+{
+  "name": "reply-deck",
+  "version": "0.2.0",
+  "private": true,
+  "workspaces": [
+    "web",
+    "worker"
+  ],
+  "scripts": {
+    "build": "npm run build --workspace=web",
+    "dev": "npm run build && wrangler dev --port 8787",
+    "deploy": "npm run build && wrangler d1 migrations apply DB --remote && wrangler deploy",
+    "typecheck": "npm run typecheck --workspace=worker && npm run typecheck --workspace=web",
+    "db:local": "wrangler d1 migrations apply DB --local"
+  },
+  "devDependencies": {
+    "wrangler": "^4.166.0"
+  },
+  "cloudflare": {
+    "bindings": {
+      "IG_APP_ID": {
+        "description": "Instagram App ID from Meta App Dashboard > Instagram > API setup with Instagram login. [Docs](https://developers.facebook.com/docs/instagram-platform/instagram-api-with-instagram-login/business-login)"
+      },
+      "IG_APP_SECRET": {
+        "description": "Instagram App Secret from the same dashboard page. Never share it."
+      },
+      "META_VERIFY_TOKEN": {
+        "description": "A random string you also paste into Meta App Dashboard > Webhooks. Generate with: openssl rand -hex 24"
+      }
+    }
+  },
+  "allowScripts": {
+    "esbuild@0.28.2": true,
+    "workerd@1.20261119.1": true
+  }
+}

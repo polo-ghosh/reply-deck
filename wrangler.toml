@@ -1,0 +1,27 @@
+name = "reply-deck"
+main = "worker/src/index.ts"
+compatibility_date = "2026-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[assets]
+directory = "web/out"
+binding = "ASSETS"
+
+[vars]
+IG_API_VERSION = "v26.0"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "meta-carousel-db"
+database_id = "b6a8fb14-d747-4afe-bf36-fd637db0d2ed"
+migrations_dir = "worker/migrations"
+
+[[kv_namespaces]]
+binding = "IMAGES"
+id = "9f99c965215c480195662ecd8e226af3"
+
+[triggers]
+crons = ["0 3 * * *"]
+
+[observability]
+enabled = true
